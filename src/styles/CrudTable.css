@@ -1,0 +1,27 @@
+.crud-table__container {
+  background-color: #2d2d2d;
+  color: #ddd;
+  border-radius: 0.5rem;
+  border: 1px solid #212121;
+  padding: 1rem;
+  padding-bottom: 2rem;
+  max-width: 600px;
+  margin: 3rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.crud-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+tr {
+  border-bottom: 1px solid #212121;
+}
+
+th,
+td {
+  padding: 1rem;
+}

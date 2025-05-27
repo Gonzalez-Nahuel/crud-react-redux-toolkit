@@ -1,0 +1,48 @@
+.crud-container {
+  max-width: 1230px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.table-container {
+  text-align: center;
+}
+
+.btn {
+  background-color: #4da6ff;
+  color: #f0f0f0;
+  padding: 0.5rem;
+  margin: 0 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+}
+
+.crud-form__btn-limpiar {
+  background-color: #555;
+}
+
+.crud-table__btn-editar {
+  background-color: #4caf50;
+}
+
+.crud-table__btn-eliminar {
+  background-color: #f44336;
+}
+
+@media (min-width: 1200px) {
+  .crud-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .crud-form__container {
+    margin: 3rem;
+    margin-right: 1rem;
+  }
+
+  .crud-table__container {
+    margin: 3rem;
+    margin-left: 1rem;
+  }
+}

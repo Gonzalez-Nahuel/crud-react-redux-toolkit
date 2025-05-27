@@ -1,0 +1,8 @@
+.message-error {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 16px;
+  text-align: center;
+  background-color: #ff6666;
+  color: #f0f0f0;
+}
