@@ -2,12 +2,6 @@ import { useState, useEffect } from "react";
 import { helpHttp } from "../helpers/helpHttp";
 import { helpValidateInput } from "../helpers/helpValidateInput";
 
-const initialForm = {
-  id: null,
-  name: "",
-  lastName: "",
-};
-
 const api = helpHttp();
 
 const url = "http://localhost:5175/users";
