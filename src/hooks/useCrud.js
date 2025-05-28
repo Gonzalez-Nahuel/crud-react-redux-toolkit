@@ -1,111 +1,75 @@
-import { useState, useEffect } from "react";
-import { helpHttp } from "../helpers/helpHttp";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { helpValidateInput } from "../helpers/helpValidateInput";
+import {
+  createUser,
+  deleteUser,
+  getUsers,
+  updateUser,
+} from "../redux/usersThunks";
+import {
+  setForm,
+  setDataToEdit,
+  setInvalidInput,
+  setIsLoading,
+} from "../redux/crudSlice";
 
-const api = helpHttp();
+const initialForm = {
+  id: null,
+  name: "",
+  lastName: "",
+};
 
 const url = "http://localhost:5175/users";
 
 export const useCrud = () => {
-  const [form, setForm] = useState(initialForm);
-  const [users, setUsers] = useState();
-  const [dataToEdit, setDataToEdit] = useState(false);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [invalidInput, setInvalidInput] = useState(false);
+  const dispatch = useDispatch();
+  const { dataToEdit, form } = useSelector((state) => state.crud);
 
   useEffect(() => {
-    setIsLoading(true);
+    const fetchUsers = async () => {
+      dispatch(setIsLoading(true));
 
-    api.get(url).then((res) => {
-      if (!res.error) {
-        setUsers(res);
-        setError(null);
-      } else {
-        setUsers(null);
-        setError(res);
-      }
+      await dispatch(getUsers(url));
 
-      setIsLoading(false);
-    });
-  }, []);
+      dispatch(setIsLoading(false));
+    };
+
+    fetchUsers();
+  }, [dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (dataToEdit) {
-      api
-        .put(`${url}/${form.id}`, {
-          body: { name: form.name, lastName: form.lastName },
-        })
-        .then((res) => {
-          if (!res.error) {
-            const newData = users.map((user) =>
-              user.id === res.id ? res : user
-            );
-
-            setUsers(newData);
-          }
-        });
-      setForm(initialForm);
-      setDataToEdit(false);
+      dispatch(updateUser(url));
     } else {
       if (helpValidateInput(form.name, form.lastName)) {
-        const user = {
-          name:
-            form.name.charAt(0).toUpperCase() +
-            form.name.slice(1).toLowerCase(),
-          lastName:
-            form.lastName.charAt(0).toUpperCase() +
-            form.lastName.slice(1).toLowerCase(),
-        };
-
-        api.post(url, { body: user }).then((res) => {
-          if (!res.error) {
-            setUsers([...users, res]);
-            setForm(initialForm);
-          }
-        });
-
-        setInvalidInput(false);
+        dispatch(createUser(url));
       } else {
-        setInvalidInput(true);
+        dispatch(setInvalidInput(true));
 
-        setTimeout(() => setInvalidInput(false), 2000);
+        setTimeout(() => dispatch(setInvalidInput(false)), 2000);
       }
     }
   };
 
   const clearForm = () => {
-    setForm(initialForm);
-    setDataToEdit(false);
+    dispatch(setForm(initialForm));
+    dispatch(setDataToEdit(false));
   };
 
   const handleDelete = (id) => {
     const confirm = window.confirm("Desea eliminar este usuario?");
 
     if (confirm) {
-      api.del(`${url}/${id}`).then((res) => {
-        if (!res.error) {
-          const newData = users.filter((user) => user.id != id);
-
-          setUsers(newData);
-        }
-      });
+      dispatch(deleteUser(url, id));
     }
   };
 
   return {
-    form,
-    setForm,
     handleSubmit,
     clearForm,
-    invalidInput,
-    error,
-    users,
-    setDataToEdit,
     handleDelete,
-    isLoading,
-    dataToEdit,
   };
 };

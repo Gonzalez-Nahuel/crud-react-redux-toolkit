@@ -1,14 +1,10 @@
 import React from "react";
 import { TableRow } from "./TableRow";
 import "../styles/CrudTable.css";
+import { useSelector } from "react-redux";
 
-export const CrudTable = ({
-  users,
-  form,
-  setForm,
-  setDataToEdit,
-  handleDelete,
-}) => {
+export const CrudTable = ({ handleDelete }) => {
+  const { users } = useSelector((state) => state.crud);
   return (
     <div className="crud-table__container">
       <table className="crud-table">
@@ -27,9 +23,6 @@ export const CrudTable = ({
                 id={user.id}
                 name={user.name}
                 lastName={user.lastName}
-                form={form}
-                setForm={setForm}
-                setDataToEdit={setDataToEdit}
                 handleDelete={handleDelete}
               />
             ))

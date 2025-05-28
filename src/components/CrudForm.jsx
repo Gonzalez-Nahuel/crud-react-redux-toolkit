@@ -1,22 +1,18 @@
 import React from "react";
 import "../styles/CrudForm.css";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUsersThunks } from "../redux/fetchUsersThunks";
 import { setForm } from "../redux/crudSlice";
+import { useCrud } from "../hooks/useCrud";
 
 export const CrudForm = () => {
   const dispatch = useDispatch();
   const { form } = useSelector((state) => state.crud);
+  const { handleSubmit, clearForm } = useCrud();
 
   const handleForm = (e) => {
     dispatch(
       setForm({ ...form, [e.currentTarget.name]: e.currentTarget.value })
     );
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(fetchUsersThunks());
   };
 
   return (

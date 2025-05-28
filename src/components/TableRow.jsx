@@ -1,20 +1,19 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { setDataToEdit, setForm } from "../redux/crudSlice";
 
-export const TableRow = ({
-  id,
-  name,
-  lastName,
-  setForm,
-  setDataToEdit,
-  handleDelete,
-}) => {
+export const TableRow = ({ id, name, lastName, handleDelete }) => {
+  const dispatch = useDispatch();
+
   const edit = () => {
-    setForm({
-      id,
-      name,
-      lastName,
-    });
-    setDataToEdit(true);
+    dispatch(
+      setForm({
+        id,
+        name,
+        lastName,
+      })
+    );
+    dispatch(setDataToEdit(true));
   };
 
   return (
