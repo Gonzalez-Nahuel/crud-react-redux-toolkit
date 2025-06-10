@@ -1,12 +1,69 @@
-# React + Vite
+# CRUD App con React, Redux Toolkit y JSON Server
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Esta aplicación es una **CRUD App completa** desarrollada con **React y Redux Toolkit**. Permite realizar operaciones básicas de **Crear, Leer, Actualizar y Eliminar** datos de usuarios a través de una **API REST falsa** creada con `json-server`. Lanza un error si falla la conexion a la **API**, muestra un loader cuando se estan cargando los datos.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tecnologías utilizadas
 
-## Expanding the ESLint configuration
+- React
+- Redux Toolkit
+- JavaScript (ES6+)
+- JSON Server (`fake-api`)
+- Fetch API
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Instalación y configuración
+
+1. **Clonar el repositorio:**
+
+   ```bash
+   git clone https://github.com/Gonzalez-Nahuel/crud-react-redux-toolkit
+   cd crud-react-redux-toolkit
+   ```
+
+2. Instalar dependencias:
+
+   ```bash
+   npm install
+   ```
+
+3. Iniciar servidor de la API falsa (JSON Server):
+
+   ```bash
+   npm run fake-api
+   ```
+
+   Esto ejecuta `json-server` en la URL:
+
+   http://localhost:5173/
+
+4. Iniciar la aplicaión React:
+   ```bash
+   npm run dev
+   ```
+
+## Funcionalidades
+
+- **Crear** un nuevo usuario
+- **Leer** todos los usuarios desde la API
+- **Actualizar** datos de un usuario
+- **Eliminar** usuarios
+- UI sincronizada con el estado global de Redux
+
+## API falsa (json-server)
+
+La api local utiliza un archivo `db.json` como base de datos simulada. Ejemplo de contenido:
+
+```json
+{
+  "users": [
+    {
+      "id": "3412",
+      "name": "Nahuel",
+      "lastName": "Gonzalez"
+    }
+  ]
+}
+```
